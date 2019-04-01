@@ -3,7 +3,7 @@ var proxy = require("http-proxy-middleware");
 var app = express();
 
 app.use(
-  ["**/*.action", "/servlet2"],
+  ["**/*.action", "/servlet2"],//正则匹配任何以.action结尾，以/servlet2开头的请求
   proxy({
     target: "http://172.16.2.5",
     changeOrigin: true,
@@ -19,8 +19,6 @@ app.use(
 
     // 修改响应头信息，实现跨域并允许带cookie
     onProxyRes: function (proxyRes, req, res) {
-      // res.header('Access-Control-Allow-Origin', 'http://www.domain1.com');
-      //res.header('Access-Control-Allow-Credentials', 'true');
       //proxyRes.headers['Cache-Control'] = 'no-Cache';
     },
     pathRewrite: {} //覆盖路径
